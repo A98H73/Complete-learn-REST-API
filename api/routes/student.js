@@ -9,9 +9,11 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-    res.status(200).json({
-        message: 'this is student post request'
-    })
+    // res.status(200).json({
+    //     message: 'this is student post request'
+    // })
+
+    console.log(req.body);
 })
 
 
