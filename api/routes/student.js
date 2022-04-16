@@ -9,9 +9,22 @@ const Student = require('../models/student.model');   //const k baad 'Student' v
 
 
 router.get('/', (req, res, next) => {
-    res.status(200).json({
-        message: 'this is student get request'
-    })
+
+    Student.find()
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                StuValue: result
+            })
+        })
+
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err,
+            })
+        })
+
 })
 
 router.post('/', (req, res, next) => {
