@@ -51,4 +51,30 @@ router.post('/', (req, res, next) => {
 
 })
 
+
+// Delete Faculty Data
+
+router.delete('/:idfy', (req, res, next) => {
+
+    Faculty.remove({ _id: req.params.idfy })
+        .then(result => {
+            console.log(result),
+                res.status(200).json({
+                    msg: "Faculty Data Deleted Successfully",
+                    fltyData: result,
+                })
+
+        })
+
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                msg: "Something went wrong!...",
+                error: err,
+            })
+        })
+
+})
+
+
 module.exports = router;

@@ -73,4 +73,26 @@ router.post('/', (req, res, next) => {
 })
 
 
+//  Delete a DAta from Database using ID 
+
+router.delete('/:idfy', (req, res, next) => {
+
+    Student.remove({ _id: req.params.idfy })
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                msg: "Data is deleted successfully",
+                dltStud: result,
+            })
+        })
+
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                msg: "Something went wrong...",
+                error: err,
+            })
+        })
+})
+
 module.exports = router;
