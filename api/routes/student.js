@@ -27,6 +27,25 @@ router.get('/', (req, res, next) => {
 
 })
 
+router.get('/:idfy', (req, res, next) => {
+    console.log(req.params.idfy);
+    Student.findById(req.params.idfy)
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                Studata: result
+            })
+        })
+
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err,
+                msg: "ID is not present in the database"
+            })
+        })
+})
+
 router.post('/', (req, res, next) => {
     const stud = new Student({
         _id: new mongoose.Types.ObjectId,
