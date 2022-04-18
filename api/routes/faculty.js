@@ -23,6 +23,27 @@ router.get('/', (req, res, next) => {
 
 })
 
+//  GET data by ID
+
+router.get('/:idfy', (req, res, next) => {
+    console.log(req.params.idfy);
+    Faculty.findById(req.params.idfy)
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                msg: "Find Successfully!!...",
+                Flty_data: result,
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                msg: "Something went wrong...",
+                error: err,
+            })
+        })
+})
+
 
 router.post('/', (req, res, next) => {
 
@@ -74,6 +95,34 @@ router.delete('/:idfy', (req, res, next) => {
             })
         })
 
+})
+
+//  PUT Request
+
+router.put('/:idfy', (req, res, next) => {
+    console.log(req.params.idfy);
+    Faculty.findOneAndUpdate({ _id: req.params.idfy }, {
+        name: req.body.name,
+        type: req.body.type,
+        phone: req.body.phone,
+        gender: req.body.gender,
+    })
+
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                msg: "Updated Successfully Bhaiya ji",
+                flty_data_update: result,
+            })
+        })
+
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                msg: "Something went wrong, try after some time",
+                error: err,
+            })
+        })
 })
 
 

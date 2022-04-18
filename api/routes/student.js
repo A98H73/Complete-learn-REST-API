@@ -95,4 +95,30 @@ router.delete('/:idfy', (req, res, next) => {
         })
 })
 
+//  PUT Request
+
+router.put('/:idfy', (req, res, next) => {
+    console.log(req.params.idfy);
+    Student.findOneAndUpdate({ _id: req.params.idfy }, {
+        name: req.body.name,
+        email: req.body.email,
+        phone: req.body.phone,
+        gender: req.body.gender,
+    })
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                msg: "Student Data Updated Successfully",
+                Stu_data_update: result,
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                msg: "Something Went wrong",
+                error: err,
+            })
+        })
+})
+
 module.exports = router;
