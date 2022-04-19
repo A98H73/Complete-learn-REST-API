@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const StudentRoute = require('./api/routes/student');
 const FacultyRouter = require('./api/routes/faculty');
+const UserRouter = require('./api/routes/user')
 const req = require('express/lib/request');
 const mongoose = require('mongoose');
 const BodyParser = require('body-parser');
@@ -30,6 +31,7 @@ app.use(BodyParser.json());
 app.use('/student', StudentRoute)
 
 app.use('/faculty', FacultyRouter)
+app.use('/user', UserRouter)
 
 
 
