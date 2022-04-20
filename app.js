@@ -6,6 +6,9 @@ const UserRouter = require('./api/routes/user')
 const req = require('express/lib/request');
 const mongoose = require('mongoose');
 const BodyParser = require('body-parser');
+const FileUplaod = require('express-fileupload');
+
+
 
 mongoose.connect('mongodb+srv://abhijeet:ABHI1234@restapi.igrwz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
 
@@ -23,6 +26,14 @@ mongoose.connection.on('connected', connected => {
 
 app.use(BodyParser.urlencoded({ extended: false }));
 app.use(BodyParser.json());
+
+
+// Ye help Karega CLOUDINARY pe files, images, and videos upload krne mein
+
+app.use(FileUplaod({
+    useTempFiles: true,
+}))
+
 
 
 // Yaad Rakho 'body-parser' ko apne saare routes k phale likhna hai

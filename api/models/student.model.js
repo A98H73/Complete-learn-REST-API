@@ -17,6 +17,7 @@ const studSchema = new mongoose.Schema({
     email: String,
     phone: Number,
     gender: String,
+    imagepath: String,
 })
 
 

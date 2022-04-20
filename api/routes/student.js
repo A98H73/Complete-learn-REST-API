@@ -1,5 +1,19 @@
 const express = require('express');
 const router = express.Router();
+const cloudinary = require('cloudinary').v2;
+
+
+// Setting the cloudinary configuration
+
+cloudinary.config({
+    cloud_name: 'dn4afcjrb',
+    api_key: '591598667677177',
+    api_secret: 'TY1nHvotsr2UzScPgNJ6reJT74Q',
+    secure: true
+});
+
+
+
 
 // Database ko use krna hai isliye mongoose require kiya
 
@@ -47,29 +61,39 @@ router.get('/:idfy', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-    const stud = new Student({
-        _id: new mongoose.Types.ObjectId,
-        name: req.body.name,             // left vala vo naame hai jo schema mein define kiya, aur right vala vo jo frontend bhej rha
-        email: req.body.email,
-        phone: req.body.phone,
-        gender: req.body.gender,
-    })
 
-    stud.save()
-        .then(result => {
-            console.log(result),
-                res.status(200).json({
-                    newStudent: result,
-                })
+    //      Photo Upload Code
 
+    console.log(req.body);
+    const file = req.files.photo;
+    cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
+        console.log(result);
+        const stud = new Student({
+            _id: new mongoose.Types.ObjectId,
+            name: req.body.name,             // left vala vo naame hai jo schema mein define kiya, aur right vala vo jo frontend bhej rha
+            email: req.body.email,
+            phone: req.body.phone,
+            gender: req.body.gender,
+            imagepath: result.url,
         })
 
-        .catch(err => {
-            console.log(err),
-                res.status(500).json({
-                    error: err,
-                })
-        })
+        stud.save()
+            .then(result => {
+                console.log(result),
+                    res.status(200).json({
+                        newStudent: result,
+                    })
+
+            })
+
+            .catch(err => {
+                console.log(err),
+                    res.status(500).json({
+                        error: err,
+                    })
+            })
+    });
+
 })
 
 
